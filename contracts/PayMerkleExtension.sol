@@ -22,6 +22,7 @@ contract PayMerkleExtended {
           root = keccak256(_newRoot, root);
     }
   function CloseChannel(uint256 _amount, bytes32[] proof) public {
+        require(msg.sender==channelRecipient);
         bytes32 computedHash = keccak256(_amount);
         require(verifyMerkle(root, computedHash, proof));
         channelRecipient.transfer(_amount);
